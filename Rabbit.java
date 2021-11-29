@@ -39,7 +39,7 @@ public class Rabbit extends Animal
     public Rabbit(boolean randomAge, Field field, Location location)
     {
         super(field, location);
-        age = 0;
+        age = super.getAge();
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }

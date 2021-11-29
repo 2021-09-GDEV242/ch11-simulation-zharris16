@@ -44,6 +44,7 @@ public class Fox extends Animal
     public Fox(boolean randomAge, Field field, Location location)
     {
         super(field, location);
+        age = super.getAge();
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
