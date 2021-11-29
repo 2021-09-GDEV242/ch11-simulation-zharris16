@@ -172,6 +172,22 @@ public class Fox extends Animal
         }
         return births;
     }
+    
+    /**
+     * get the breeding probability of fox.
+     * @return breeding probility.
+     */
+    public double getBreedingProbability(){
+        return BREEDING_PROBABILITY;
+    }
+    
+    /**
+     * get the max litter size of fox.
+     * @return max litter size.
+     */
+    public int getMaxLitterSize(){
+        return MAX_LITTER_SIZE;
+    }
 
     /**
      * A fox can breed if it has reached the breeding age.

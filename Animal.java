@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Random;
 
 /**
  * A class representing shared characteristics of animals.
@@ -16,6 +17,8 @@ public abstract class Animal
     private Location location;
     // The animals age.
     private int age;
+    
+    private Random rand;
     /**
      * Create a new animal at location in field.
      * 
@@ -24,10 +27,37 @@ public abstract class Animal
      */
     public Animal(Field field, Location location)
     {
+        
         age = 0;
         alive = true;
         this.field = field;
         setLocation(location);
+    }
+    
+    /**
+     * get the breedign probability of the animal.
+     * @return max age
+     */
+    abstract protected double getBreedingProbability();
+    
+    /**
+     * get the breedign probability of the animal.
+     * @return max age
+     */
+    abstract protected int getMaxLitterSize();
+    
+    /**
+     * Generate a number representing the number of births,
+     * if it can breed.
+     * @return The number of births (may be zero).
+     */
+    private int breed()
+    {
+        int births = 0;
+        if(canBreed() && rand.nextDouble() <= getBreedingProbability()) {
+            births = rand.nextInt(getMaxLitterSize()) + 1;
+        }
+        return births;
     }
     
     /**

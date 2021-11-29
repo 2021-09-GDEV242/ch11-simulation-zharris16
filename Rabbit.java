@@ -119,6 +119,22 @@ public class Rabbit extends Animal
         }
         return births;
     }
+    
+    /**
+     * get the breeding probability of rabbit.
+     * @return breeding probility.
+     */
+    public double getBreedingProbability(){
+        return BREEDING_PROBABILITY;
+    }
+    
+    /**
+     * get the max litter size of rabbit.
+     * @return max litter size.
+     */
+    public int getMaxLitterSize(){
+        return MAX_LITTER_SIZE;
+    }
 
     /**
      * A rabbit can breed if it has reached the breeding age.
