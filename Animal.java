@@ -31,6 +31,20 @@ public abstract class Animal
     }
     
     /**
+     * An animal can breed if ti has reached the breeding age.
+     * @return true if the animal can breed.
+     */
+    public boolean canBreed(){
+        return age >= getBreedingAge();
+    }
+    
+    /**
+     * Return the breeding age of this animal.
+     * @return The breedign age of this animal.
+     */
+    abstract protected int getBreedingAge();
+    
+    /**
      * gets the current age field value.
      * @return age - current age fo animal.
      */
