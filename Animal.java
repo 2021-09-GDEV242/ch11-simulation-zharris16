@@ -31,6 +31,24 @@ public abstract class Animal
     }
     
     /**
+     * get the max age of the animal.
+     * @return max age
+     */
+    abstract protected int getMaxAge();
+    
+    /**
+     * Increase the age.
+     * This could result in the rabbit's death.
+     */
+    private void incrementAge()
+    {
+        age++;
+        if(age > getMaxAge()) {
+            setDead();
+        }
+    }
+    
+    /**
      * An animal can breed if ti has reached the breeding age.
      * @return true if the animal can breed.
      */
