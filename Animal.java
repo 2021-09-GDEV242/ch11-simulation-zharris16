@@ -4,8 +4,8 @@ import java.util.Random;
 /**
  * A class representing shared characteristics of animals.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Zachary Harris
+ * @version 11/29/21
  */
 public abstract class Animal
 {
@@ -27,7 +27,6 @@ public abstract class Animal
      */
     public Animal(Field field, Location location)
     {
-        
         age = 0;
         alive = true;
         this.field = field;

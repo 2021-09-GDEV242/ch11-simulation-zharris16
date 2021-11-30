@@ -8,8 +8,8 @@ import java.awt.Color;
  * A simple predator-prey simulator, based on a rectangular field
  * containing rabbits and foxes.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Zachary Harris
+ * @version 11/29/21
  */
 public class Simulator
 {
@@ -19,9 +19,11 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.02;
+    private static final double FOX_CREATION_PROBABILITY = 0.03;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
+    private static final double RABBIT_CREATION_PROBABILITY = 0.08;
+    // The probability that a rabbit will be created in any given grid position.
+    private static final double HONEYBADGER_CREATION_PROBABILITY = 0.06;
 
     // List of animals in the field.
     private List<Animal> animals;
@@ -84,7 +86,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            // delay(60);   // uncomment this to run more slowly
+            //delay(5);   // uncomment this to run more slowly
         }
     }
     
@@ -145,6 +147,11 @@ public class Simulator
                     Location location = new Location(row, col);
                     Rabbit rabbit = new Rabbit(true, field, location);
                     animals.add(rabbit);
+                }
+                else if(rand.nextDouble() <= HONEYBADGER_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    HoneyBadger honeyBadger = new HoneyBadger(true, field, location);
+                    animals.add(honeyBadger);
                 }
                 // else leave the location empty.
             }

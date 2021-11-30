@@ -1,29 +1,29 @@
 import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
-
 /**
- * A simple model of a fox.
- * Foxes age, move, eat rabbits, and die.
- * 
+ * A simple model of a honey badger.
+ * honey badgers age, move, eat foxes, and die.
+ *
  * @author Zachary Harris
  * @version 11/29/21
  */
-public class Fox extends Animal
+public class HoneyBadger extends Animal
 {
     // Characteristics shared by all foxes (class variables).
     
     // The age at which a fox can start to breed.
-    private static final int BREEDING_AGE = 15;
+    private static final int BREEDING_AGE = 10;
     // The age to which a fox can live.
-    private static final int MAX_AGE = 200;
+    private static final int MAX_AGE = 300;
     // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.08;
+    private static final double BREEDING_PROBABILITY = 0.015;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 2;
+    private static final int MAX_LITTER_SIZE = 1;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
     private static final int RABBIT_FOOD_VALUE = 9;
+    private static final int FOX_FOOD_VALUE = 9;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
@@ -34,14 +34,14 @@ public class Fox extends Animal
     private int foodLevel;
 
     /**
-     * Create a fox. A fox can be created as a new born (age zero
+     * Create a honey badger. A honey badger can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
      * 
      * @param randomAge If true, the fox will have random age and hunger level.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Fox(boolean randomAge, Field field, Location location)
+    public HoneyBadger(boolean randomAge, Field field, Location location)
     {
         super(field, location);
         age = super.getAge();
@@ -56,18 +56,18 @@ public class Fox extends Animal
     }
     
     /**
-     * This is what the fox does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
+     * This is what the Honey badger does most of the time: it hunts for
+     * foxes and rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
      * @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
-    public void act(List<Animal> newFoxes)
+    public void act(List<Animal> newHoneyBadger)
     {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            giveBirth(newFoxes);            
+            giveBirth(newHoneyBadger);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
             if(newLocation == null) { 
@@ -97,7 +97,7 @@ public class Fox extends Animal
     }
     
     /**
-     * get the max age of the fox.
+     * get the max age of the honey badger.
      * @return max age
      */
     public int getMaxAge(){
@@ -105,7 +105,7 @@ public class Fox extends Animal
     }
     
     /**
-     * Make this fox more hungry. This could result in the fox's death.
+     * Make this honey badger more hungry. This could result in the honey badger's death.
      */
     private void incrementHunger()
     {
@@ -116,8 +116,8 @@ public class Fox extends Animal
     }
     
     /**
-     * Look for rabbits adjacent to the current location.
-     * Only the first live rabbit is eaten.
+     * Look for rabbits and foxes adjacent to the current location.
+     * Only the first live rabbit or fox is eaten.
      * @return Where food was found, or null if it wasn't.
      */
     private Location findFood()
@@ -135,17 +135,24 @@ public class Fox extends Animal
                     foodLevel = RABBIT_FOOD_VALUE;
                     return where;
                 }
+            }else if(animal instanceof Fox) {
+                Fox fox = (Fox) animal;
+                if(fox.isAlive()) { 
+                    fox.setDead();
+                    foodLevel = FOX_FOOD_VALUE;
+                    return where;
+                }
             }
         }
         return null;
     }
     
     /**
-     * Check whether or not this fox is to give birth at this step.
+     * Check whether or not this honey badger is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newFoxes A list to return newly born foxes.
+     * @param newHoneyBadger A list to return newly born honey badgers.
      */
-    private void giveBirth(List<Animal> newFoxes)
+    private void giveBirth(List<Animal> newHoneyBadger)
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
@@ -154,8 +161,8 @@ public class Fox extends Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
-            newFoxes.add(young);
+            HoneyBadger young = new HoneyBadger(false, field, loc);
+            newHoneyBadger.add(young);
         }
     }
         
@@ -174,7 +181,7 @@ public class Fox extends Animal
     }
     
     /**
-     * get the breeding probability of fox.
+     * get the breeding probability of honey badger.
      * @return breeding probility.
      */
     public double getBreedingProbability(){
@@ -182,7 +189,7 @@ public class Fox extends Animal
     }
     
     /**
-     * get the max litter size of fox.
+     * get the max litter size of honey badger.
      * @return max litter size.
      */
     public int getMaxLitterSize(){
@@ -198,7 +205,7 @@ public class Fox extends Animal
     }
     
     /**
-     * @return the age at which a rabbit to breed.
+     * @return the age at which a honey badger to breed.
      */
     public int getBreedingAge(){
         return BREEDING_AGE;
